@@ -8,23 +8,19 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 df = pd.read_csv("movies_metadata.csv")
 
 class MovieAnalysis:
-    """
-    A class to perform various operations on a movie dataset.
-    """
+
+  #  A class to perform various operations on a movie dataset.
 
     def __init__(self, csv_path):
-        """
-        Initialize the MovieAnalysis class with the path to the CSV file.
-        
-        :param csv_file: Path to the CSV file containing the movie dataset.
-        """
+       
+        # Initialize the MovieAnalysis class with the path to the CSV file.
+        # param csv_file: Path to the CSV file containing the movie dataset.
         self.csv_file = csv_path
         self.df = None
 
     def load_dataset(self):
-        """
-        Load the dataset from the CSV file into a pandas DataFrame.
-        """
+        # Load the dataset from the CSV file into a pandas DataFrame.
+        
         try:
             self.df = pd.read_csv(self.csv_file)
             logging.info("Dataset loaded successfully.")
@@ -33,9 +29,9 @@ class MovieAnalysis:
             raise
 
     def unique_movies_count(self):
-        """
-        Print the number of unique movies in the dataset.
-        """
+        
+        # Print the number of unique movies in the dataset.
+        
         try:
             unique_movies = self.df['title'].nunique()
             logging.info(f"Number of unique movies: {unique_movies}")
@@ -45,9 +41,8 @@ class MovieAnalysis:
             raise
 
     def average_rating(self):
-        """
-        Print the average rating of all the movies.
-        """
+       # Print the average rating of all the movies.
+        
         try:
             avg_rating = self.df['vote_average'].mean()
             logging.info(f"Average rating of all movies: {avg_rating}")
@@ -57,9 +52,8 @@ class MovieAnalysis:
             raise
 
     def top_5_highest_rated_movies(self):
-        """
-        Print the top 5 highest rated movies.
-        """
+       # Print the top 5 highest rated movies.
+        
         try:
             top_5_movies = self.df.nlargest(5, 'vote_average')[['title', 'vote_average']]
             logging.info("Top 5 highest rated movies:")
@@ -70,9 +64,8 @@ class MovieAnalysis:
             raise
 
     def movies_released_each_year(self):
-        """
-        Print the number of movies released each year.
-        """
+
+       # Print the number of movies released each year.
         try:
             movies_per_year = self.df['release_date'].value_counts().sort_index()
             logging.info("Number of movies released each year:")
@@ -83,9 +76,8 @@ class MovieAnalysis:
             raise
 
     def movies_per_genre(self):
-        """
-        Print the number of movies in each genre.
-        """
+    
+       # Print the number of movies in each genre.
         try:
             genre_counts = self.df['genres'].value_counts()
             logging.info("Number of movies in each genres:")
@@ -96,11 +88,8 @@ class MovieAnalysis:
             raise
 
     def save_to_json(self, json_file):
-        """
-        Save the dataset to a JSON file.
-        
-        :param json_file: Path to the JSON file where the dataset will be saved.
-        """
+       # Save the dataset to a JSON file.
+       # param json_file: Path to the JSON file where the dataset will be saved.
         try:
             self.df.to_json(json_file, orient='records', lines=True)
             logging.info(f"Dataset saved to JSON file: {json_file}")
